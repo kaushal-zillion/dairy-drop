@@ -1,0 +1,109 @@
+<div class="auth-page min-h-screen flex items-center justify-center p-6">
+    <!-- Card -->
+    <div class="auth-card w-full max-w-md card-animate">
+
+        <!-- Top gradient bar -->
+        <div class="card-bar"></div>
+
+        <div class="px-10 pt-10 pb-10">
+            <!-- Logo -->
+            <div class="flex items-center gap-3 mb-9">
+                <svg class="logo-drop" viewBox="0 0 60 78" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="lg" x1="0" y1="0" x2="0" y2="78" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#6DD5FA" />
+                            <stop offset="100%" stop-color="#2980B9" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M30 0C30 0 0 32 0 50C0 65.4 13.4 78 30 78C46.6 78 60 65.4 60 50C60 32 30 0 30 0Z"
+                        fill="url(#lg)" />
+                    <ellipse cx="30" cy="62" rx="14" ry="7" fill="white" opacity="0.4" transform="rotate(-10,30,62)" />
+                    <ellipse cx="21" cy="28" rx="5" ry="10" fill="white" opacity="0.3" transform="rotate(-20,21,28)" />
+                </svg>
+                <div>
+                    <div class="logo-title">Dairy<span>Drop</span></div>
+                    <div class="mt-1 text-sm text-blue-950 font-bold capitalize">fresh from the farm</div>
+                </div>
+            </div>
+
+            <!-- Heading -->
+            <div class="mb-8">
+                <h1 class="card-heading">Hey There 👋</h1>
+                <p class="card-sub mt-2">Please enter your details.</p>
+            </div>
+
+            <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-5">
+
+                <!-- name -->
+                <div class="field-wrap">
+                    <mat-form-field appearance="outline" class="w-full dairy-field">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" formControlName="name" placeholder="Name" />
+                        <mat-icon matSuffix class="suffix-icon">person</mat-icon>
+                        @if (signupForm.get('name')?.invalid) {
+                        <mat-error>Please enter your name</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <!-- Email -->
+                <div class="field-wrap">
+                    <mat-form-field appearance="outline" class="w-full dairy-field">
+                        <mat-label>Email Address</mat-label>
+                        <input matInput type="email" formControlName="email" placeholder="you@gmail.com" />
+                        <mat-icon matSuffix class="suffix-icon">mail</mat-icon>
+                        @if (signupForm.get('email')?.invalid && signupForm.get('email')?.touched) {
+                        <mat-error>Please enter a valid email address</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+
+                <!-- Password -->
+                <div class="field-wrap">
+                    <mat-form-field appearance="outline" class="w-full dairy-field">
+                        <mat-label>Password</mat-label>
+                        <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" />
+                        <button type="button" mat-icon-button matSuffix (click)="toggleVisibility($event)"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()" class="eye-btn">
+                            <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+                        </button>
+                        @if (signupForm.get('password')?.hasError('minlength')) {
+                        <mat-error>Password must be at least 8 characters</mat-error>
+                        }
+                    </mat-form-field>
+                    <div class="flex items-center justify-between mb-1">
+                        <a href="#" class="forgot-link text-sm">Forgot password?</a>
+                    </div>
+                </div>
+
+                <!-- Error banner -->
+                @if (errorMessage()) {
+                <div class="error-banner flex items-center gap-2 text-sm">
+                    <mat-icon class="text-base">error_outline</mat-icon>
+                    {{ errorMessage() }}
+                </div>
+                }
+
+                <!-- Submit -->
+                <button class="btn-submit w-full mt-1" [disabled]="signupForm.invalid">
+                    @if (isLoading()) {
+                    <span class="spinner"></span>
+                    <span>Signing in…</span>
+                    } @else {
+                    <span>Sign In to DairyDrop</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                    </svg>
+                    }
+                </button>
+
+            </form>
+            <!-- Sign up link (original routerLink preserved) -->
+            <div class="mt-7 flex items-center justify-center gap-2 text-sm">
+                <span class="text-blue-300 font-light">already have an account?</span>
+                <a routerLink="/login" class="signup-link font-semibold">Login</a>
+            </div>
+
+        </div>
+    </div>
+</div>
