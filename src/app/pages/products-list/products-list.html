@@ -1,1 +1,99 @@
-<app-header></app-header>
+<section>
+    <app-header></app-header>
+    <div class="container mx-auto">
+        <div class="py-25">
+            <div class="mb-9 px-4">
+                <div class="mb-8">
+                    <div class="section-eyebrow">
+                        <span class="eyebrow-dot"></span>
+                        Fresh Collection
+                    </div>
+                    <h1 class="page-title">Our <span>Dairy</span> Products</h1>
+                    <p class="page-subtitle">Farm-fresh goodness delivered straight to your door every morning</p>
+                </div>
+
+                <!-- Search + Filter bar -->
+                <div class="toolbar">
+                    <div class="search-wrap">
+                        <mat-icon class="search-icon">search</mat-icon>
+                        <input type="text" class="search-input"  [(ngModel)]="searchInput"
+                            placeholder="Search products…" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Product Grid ── -->
+            <div class="flex flex-wrap">
+                @for (product of filteredProducts(); track product._id) {
+                <div class="w-3/12 px-4 mb-8">
+                    <div class="product-card h-full">
+                        <!-- Image area -->
+                        <div class="product-image-wrap">
+                            <div class="product-image-bg">
+                                <img [src]='product.image' [alt]="product.name">
+                            </div>
+                            <!-- Quick-add overlay -->
+                            <div class="image-overlay">
+                                <button class="quick-view-btn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                        <circle cx="12" cy="12" r="3" />
+                                    </svg>
+                                    Quick View
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Card body -->
+                        <div class="product-body h-50 flex justify-between flex-col">
+                            <div>
+                                <div class="product-category-tag">{{ product.category }}</div>
+                                <h3 class="product-name capitalize w-full">{{ product.name }}</h3>
+                                <p class="product-desc capitalize w-full">{{ product.description }}</p>
+                            </div>
+
+                            <!-- Price + Add to cart -->
+                            <div class="product-footer">
+                                <div class="price-wrap">
+                                    <span class="current-price">₹{{ product.price }}</span>
+                                    <span class="price-unit">/ {{ getUnit(product.category) }}</span>
+                                </div>
+
+                                <button class="add-to-cart-btn" (click)="addToCart(product)"
+                                    [class.added]="isAdded(product._id)">
+                                    @if (isAdded(product._id )) {
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12" />
+                                    </svg>
+                                    } @else {
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                                        <line x1="3" y1="6" x2="21" y2="6" />
+                                        <path d="M16 10a4 4 0 01-8 0" />
+                                    </svg>
+                                    }
+                                    <span>{{ isAdded(product._id) ? 'Added!' : 'Add to Cart' }}</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                }
+
+                <!-- Empty state -->
+                @if (filteredProducts().length ===0) {
+                <div class="empty-state">
+                    <div class="empty-emoji">🔍</div>
+                    <h3>No products found</h3>
+                    <p>Try a different search or category</p>
+                    <button class="chip active">Clear filters</button>
+                </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</section>

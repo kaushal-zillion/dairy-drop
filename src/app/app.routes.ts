@@ -6,5 +6,5 @@ import { authGuardGuard } from './gaurd/auth-guard-guard';
 export const routes: Routes = [
     { path: 'login', component: Login },
     { path: 'signup', component: Signup },
-    { path: '', canActivate: [authGuardGuard], loadComponent: () => import('./pages/products-list/products-list').then(m => m.ProductsList) }
+    { path: 'products', canActivate: [authGuardGuard], loadComponent: () => import('./pages/products-list/products-list').then(m => m.ProductsList) }
 ];

@@ -15,7 +15,6 @@ export class AuthService {
   baseUrl = 'http://localhost:8000/api';
 
   currentUser = signal<UserInfo | null>(null)
-
   login(credentials: LoginCredentials) {
     return this.http.post<LoginResponse>(`${this.baseUrl}/auth/login`, credentials).pipe(tap(res => {
       const { token, ...data } = res;

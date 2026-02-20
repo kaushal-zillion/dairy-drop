@@ -1,6 +1,5 @@
 <header class="dairy-header">
-    <div class="header-inner">
-
+    <div class="header-inner container mx-auto px-4">
         <!-- ── Logo -->
         <a routerLink="/" class="logo cursor-pointer" aria-label="DairyDrop Home">
             <svg class="logo-drop" viewBox="0 0 60 78" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,19 +19,13 @@
                 <span class="logo-tagline">FRESH FROM THE FARM</span>
             </div>
         </a>
-
-        <!-- ── Nav links (center) -->
         <nav class="nav-links" aria-label="Main navigation">
             <a routerLink="/" routerLinkActive="nav-active" class="nav-link">Home</a>
             <a routerLink="/products" routerLinkActive="nav-active" class="nav-link">Products</a>
             <a routerLink="/about" routerLinkActive="nav-active" class="nav-link">About</a>
             <a routerLink="/contact" routerLinkActive="nav-active" class="nav-link">Contact</a>
         </nav>
-
-        <!-- ── Right actions -->
         <div class="header-actions">
-
-            <!-- Cart button -->
             <button type="button" class="cart-btn" routerLink="/cart" aria-label="View cart">
                 <span class="btn-icon-wrap">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -41,9 +34,7 @@
                         <line x1="3" y1="6" x2="21" y2="6" />
                         <path d="M16 10a4 4 0 01-8 0" />
                     </svg>
-                    <!-- @if (cartCount() > 0) {
-                    <span class="cart-badge">{{ cartCount() > 99 ? '99+' : cartCount() }}</span>
-                    } -->
+                    <span class="cart-badge">{{cartService.cart().length}}</span>
                 </span>
                 <span class="btn-label">Cart</span>
             </button>
@@ -114,8 +105,6 @@
             </button>
         </div>
     </div>
-
 </header>
-
 <!-- Spacer so content doesn't hide behind fixed header -->
 <div class="header-spacer"></div>

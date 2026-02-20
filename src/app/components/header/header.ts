@@ -1,6 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -9,30 +10,21 @@ import { Router } from '@angular/router';
   styleUrl: './header.css',
 })
 export class Header {
-   authService = inject(AuthService);
-  // private cartService = inject(CartService);
-  private router = inject(Router);
+  authService = inject(AuthService);
+  cartService = inject(CartService)
+  router = inject(Router);
 
-  // ── Signals
   menuOpen = signal<boolean>(false);
+  currentUser = computed(() => this.authService.currentUser());
 
-  // ── From services (expose as signals / computed)
-  // Replace these with your actual service calls:
-  currentUser = computed(() => this.authService.currentUser());   // signal<User|null>
-  // cartCount = computed(() => this.cartService.itemCount());     // signal<number>
-
-  // ── Mobile menu
   toggleMobileMenu(): void {
     this.menuOpen.update(v => !v);
   }
-
   closeMobileMenu(): void {
     this.menuOpen.set(false);
   }
-
-  // ── Logout
   onLogout(): void {
-    this.authService.logout();          // clears token / user state
+    this.authService.logout();
     this.closeMobileMenu();
     this.router.navigate(['/login']);
   }
