@@ -1,7 +1,7 @@
-<section>
+<section class="h-screen">
     <app-header></app-header>
     <div class="container mx-auto">
-        <div class="py-25">
+        <div class="sm:py-25 py-4">
             <div class="mb-9 px-4">
                 <div class="mb-8">
                     <div class="section-eyebrow">
@@ -12,27 +12,44 @@
                     <p class="page-subtitle">Farm-fresh goodness delivered straight to your door every morning</p>
                 </div>
 
-                <!-- Search + Filter bar -->
-                <div class="toolbar">
-                    <div class="search-wrap">
-                        <mat-icon class="search-icon">search</mat-icon>
-                        <input type="text" class="search-input"  [(ngModel)]="searchInput"
-                            placeholder="Search products…" />
+                <div class="sm:flex justify-between items-center flex-wrap">
+                    <!-- Search + Filter bar -->
+                    <div class="toolbar">
+                        <div class="search-wrap">
+                            <mat-icon class="search-icon">search</mat-icon>
+                            <input type="text" class="search-input" [(ngModel)]="searchQ"
+                                (ngModelChange)="onSearchChange()" placeholder="Search products…" />
+                        </div>
+                    </div>
+
+                    <!-- filter -->
+                    <div class="flex gap-3 justify-center sm:mt-0 mt-4">
+                        <button
+                            class="border border-blue-200 bg-white text-blue-800 px-4 cursor-pointer rounded-3xl py-2"
+                            (click)="setCategory('all')">All</button>
+                        <button
+                            class="border border-blue-200 bg-white text-blue-800 px-4 cursor-pointer rounded-3xl py-2"
+                            (click)="setCategory('dairy')">Dairy</button>
+                        <button
+                            class="border border-blue-200 bg-white text-blue-800 px-4 cursor-pointer rounded-3xl py-2"
+                            (click)="setCategory('milk')">Milk</button>
+                        <button
+                            class="border border-blue-200 bg-white text-blue-800 px-4 cursor-pointer rounded-3xl py-2"
+                            (click)="setCategory('sweets')">Sweets</button>
                     </div>
                 </div>
             </div>
 
-            <!-- ── Product Grid ── -->
+            <!-- ── Product ── -->
             <div class="flex flex-wrap">
-                @for (product of filteredProducts(); track product._id) {
-                <div class="w-3/12 px-4 mb-8">
+                @for (product of visibleProducts(); track product._id) {
+                <div class="xl:w-3/12 lg:w-6/12 w-full px-4 mb-8">
                     <div class="product-card h-full">
-                        <!-- Image area -->
+                        <!-- Image -->
                         <div class="product-image-wrap">
                             <div class="product-image-bg">
                                 <img [src]='product.image' [alt]="product.name">
                             </div>
-                            <!-- Quick-add overlay -->
                             <div class="image-overlay">
                                 <button class="quick-view-btn">
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -60,7 +77,7 @@
                                 </div>
 
                                 <button class="add-to-cart-btn" (click)="addToCart(product)"
-                                    [class.added]="isAdded(product._id)">
+                                    [class.added]="isAdded(product._id)" [disabled]="isAdded(product._id)">
                                     @if (isAdded(product._id )) {
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                         stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -89,8 +106,14 @@
                     <div class="empty-emoji">🔍</div>
                     <h3>No products found</h3>
                     <p>Try a different search or category</p>
-                    <button class="chip active">Clear filters</button>
+                    <!-- <button class="chip active">Clear filters</button> -->
                 </div>
+                }
+            </div>
+            <div class="px-4">
+                @if (filteredProducts().length >0) {
+                <mat-paginator [length]="filteredProducts().length" [pageSize]="pageSize()" [pageIndex]="pageIndex()"
+                    [pageSizeOptions]="[4,8]" (page)="handlePageEvent($event)" aria-label="Select page"></mat-paginator>
                 }
             </div>
         </div>

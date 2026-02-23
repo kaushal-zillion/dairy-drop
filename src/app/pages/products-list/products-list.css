@@ -354,12 +354,9 @@ section {
     }
 }
 
-/* ═══════════════════════════════════════
-   EMPTY STATE
-═══════════════════════════════════════ */
 .empty-state {
-    grid-column: 1 / -1;
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -399,9 +396,229 @@ section {
     margin-bottom: 8px;
 }
 
-/* ═══════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════ */
+
+
+
+/* ── Wrapper shell ── */
+.mat-mdc-paginator {
+    background: rgba(255, 255, 255, 0.82) !important;
+    border: 1px solid rgba(109, 213, 250, 0.22) !important;
+    border-radius: 18px !important;
+    backdrop-filter: blur(16px) !important;
+    box-shadow:
+        0 4px 20px rgba(41, 128, 185, 0.07),
+        0 1px 5px rgba(41, 128, 185, 0.04) !important;
+    font-family: 'DM Sans', 'Segoe UI', sans-serif !important;
+    color: #7ab8d4 !important;
+    padding: 4px 8px !important;
+}
+
+/* ── Inner container ── */
+.mat-mdc-paginator-container {
+    min-height: 56px !important;
+    padding: 6px 16px !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+}
+
+/* ── "Items per page" label ── */
+.mat-mdc-paginator-page-size-label {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #7ab8d4 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    margin-right: 4px !important;
+}
+
+/* ── Page size select field ── */
+.mat-mdc-paginator-page-size-select {
+    width: auto !important;
+    min-width: 80px !important;
+    margin: 0 6px !important;
+}
+
+/* Outline border */
+.mat-mdc-paginator-page-size-select .mdc-notched-outline__leading,
+.mat-mdc-paginator-page-size-select .mdc-notched-outline__notch,
+.mat-mdc-paginator-page-size-select .mdc-notched-outline__trailing {
+    border-color: #ddf0fb !important;
+    transition: border-color 0.22s !important;
+}
+
+.mat-mdc-paginator-page-size-select:hover .mdc-notched-outline__leading,
+.mat-mdc-paginator-page-size-select:hover .mdc-notched-outline__notch,
+.mat-mdc-paginator-page-size-select:hover .mdc-notched-outline__trailing {
+    border-color: #6DD5FA !important;
+}
+
+.mat-mdc-paginator-page-size-select.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-paginator-page-size-select.mat-focused .mdc-notched-outline__notch,
+.mat-mdc-paginator-page-size-select.mat-focused .mdc-notched-outline__trailing {
+    border-color: #2980B9 !important;
+    border-width: 2px !important;
+}
+
+/* Select input text */
+.mat-mdc-paginator-page-size-select .mat-mdc-select-value {
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    color: #1a5f8a !important;
+}
+
+/* Select arrow */
+.mat-mdc-paginator-page-size-select .mat-mdc-select-arrow {
+    color: #7ab8d4 !important;
+    transition: color 0.2s !important;
+}
+
+.mat-mdc-paginator-page-size-select.mat-focused .mat-mdc-select-arrow {
+    color: #2980B9 !important;
+}
+
+/* Select field background */
+.mat-mdc-paginator-page-size-select .mat-mdc-text-field-wrapper {
+    background: rgba(240, 248, 255, 0.6) !important;
+    border-radius: 11px !important;
+}
+
+.mat-mdc-paginator-page-size-select.mat-focused .mat-mdc-text-field-wrapper {
+    background: white !important;
+    box-shadow: 0 0 0 3px rgba(109, 213, 250, 0.15) !important;
+}
+
+/* ── "X – Y of Z" range label ── */
+.mat-mdc-paginator-range-label {
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+    color: #7ab8d4 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    margin: 0 14px !important;
+}
+
+/* ── Navigation actions container ── */
+.mat-mdc-paginator-range-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+}
+
+/* ── All nav icon buttons ── */
+.mat-mdc-paginator-navigation-first,
+.mat-mdc-paginator-navigation-previous,
+.mat-mdc-paginator-navigation-next,
+.mat-mdc-paginator-navigation-last {
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 10px !important;
+    border: 1.5px solid #ddf0fb !important;
+    background: transparent !important;
+    color: #7ab8d4 !important;
+    transition: all 0.22s ease !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Hover state */
+.mat-mdc-paginator-navigation-first:hover:not([disabled]),
+.mat-mdc-paginator-navigation-previous:hover:not([disabled]),
+.mat-mdc-paginator-navigation-next:hover:not([disabled]),
+.mat-mdc-paginator-navigation-last:hover:not([disabled]) {
+    background: rgba(109, 213, 250, 0.12) !important;
+    border-color: #6DD5FA !important;
+    color: #2980B9 !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 3px 10px rgba(109, 213, 250, 0.22) !important;
+}
+
+/* Ripple override — use brand colour */
+.mat-mdc-paginator-navigation-first .mat-mdc-button-ripple,
+.mat-mdc-paginator-navigation-previous .mat-mdc-button-ripple,
+.mat-mdc-paginator-navigation-next .mat-mdc-button-ripple,
+.mat-mdc-paginator-navigation-last .mat-mdc-button-ripple {
+    border-radius: 10px !important;
+}
+
+.mat-mdc-paginator-navigation-first .mat-ripple-element,
+.mat-mdc-paginator-navigation-previous .mat-ripple-element,
+.mat-mdc-paginator-navigation-next .mat-ripple-element,
+.mat-mdc-paginator-navigation-last .mat-ripple-element {
+    background: rgba(109, 213, 250, 0.25) !important;
+}
+
+/* Disabled state */
+.mat-mdc-paginator-navigation-first[disabled],
+.mat-mdc-paginator-navigation-previous[disabled],
+.mat-mdc-paginator-navigation-next[disabled],
+.mat-mdc-paginator-navigation-last[disabled] {
+    opacity: 0.3 !important;
+    border-color: #ddf0fb !important;
+    color: #aac8dd !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+/* ── Nav icon SVGs ── */
+.mat-mdc-paginator-navigation-first .mat-mdc-paginator-icon,
+.mat-mdc-paginator-navigation-previous .mat-mdc-paginator-icon,
+.mat-mdc-paginator-navigation-next .mat-mdc-paginator-icon,
+.mat-mdc-paginator-navigation-last .mat-mdc-paginator-icon {
+    fill: currentColor !important;
+    width: 20px !important;
+    height: 20px !important;
+}
+
+/* ── Select panel (dropdown) ── */
+.mat-mdc-select-panel {
+    border-radius: 14px !important;
+    border: 1px solid rgba(109, 213, 250, 0.25) !important;
+    box-shadow: 0 8px 32px rgba(41, 128, 185, 0.14) !important;
+    backdrop-filter: blur(16px) !important;
+    background: rgba(247, 251, 255, 0.96) !important;
+    padding: 6px !important;
+}
+
+/* Option items */
+.mat-mdc-select-panel .mat-mdc-option {
+    border-radius: 10px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+    color: #0d2d44 !important;
+    min-height: 40px !important;
+    margin-bottom: 2px !important;
+    transition: background 0.18s !important;
+}
+
+/* Option hover */
+.mat-mdc-select-panel .mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+    background: rgba(109, 213, 250, 0.12) !important;
+    color: #2980B9 !important;
+}
+
+/* Selected option */
+.mat-mdc-select-panel .mat-mdc-option.mdc-list-item--selected {
+    background: rgba(109, 213, 250, 0.18) !important;
+    color: #2980B9 !important;
+    font-weight: 700 !important;
+}
+
+/* Selected checkmark */
+.mat-mdc-select-panel .mat-mdc-option .mat-pseudo-checkbox-checked {
+    background: #2980B9 !important;
+    border-color: #2980B9 !important;
+}
+
+/* Option ripple */
+.mat-mdc-select-panel .mat-mdc-option .mat-ripple-element {
+    background: rgba(109, 213, 250, 0.2) !important;
+}
+
+
+
+
 @media (max-width: 1024px) {
     .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

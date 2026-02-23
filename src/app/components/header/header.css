@@ -425,14 +425,11 @@
   justify-content: center;
 }
 
-/* ── Spacer ── */
 .header-spacer {
   height: 71px;
 }
 
-/* ══════════════════════════
-   RESPONSIVE
-══════════════════════════ */
+
 @media (max-width: 900px) {
   .nav-links {
     display: none;
@@ -453,10 +450,6 @@
   .cart-btn,
   .logout-btn {
     padding: 8px 10px;
-  }
-
-  .header-inner {
-    padding: 0 20px;
   }
 }
 

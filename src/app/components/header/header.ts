@@ -1,11 +1,11 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CartService } from '../../services/cart.service';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -15,7 +15,7 @@ export class Header {
   router = inject(Router);
 
   menuOpen = signal<boolean>(false);
-  currentUser = computed(() => this.authService.currentUser());
+  // currentUser = computed(() => this.authService.currentUser());
 
   toggleMobileMenu(): void {
     this.menuOpen.update(v => !v);

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { LoginCredentials, LoginResponse, User, UserInfo } from '../models/user.model';
+import { LoginCredentials, LoginResponse, User } from '../models/user.model';
 import { tap } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -14,12 +14,12 @@ export class AuthService {
 
   baseUrl = 'http://localhost:8000/api';
 
-  currentUser = signal<UserInfo | null>(null)
+  // currentUser = signal<UserInfo | null>(null)
   login(credentials: LoginCredentials) {
     return this.http.post<LoginResponse>(`${this.baseUrl}/auth/login`, credentials).pipe(tap(res => {
       const { token, ...data } = res;
       localStorage.setItem('token', token);
-      this.currentUser.set(data)
+      // this.currentUser.set(data)
     }));
   }
 
@@ -27,13 +27,13 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.baseUrl}/auth/register`, credentials).pipe(tap(res => {
       const { token, ...data } = res;
       localStorage.setItem('token', token);
-      this.currentUser.set(data)
+      // this.currentUser.set(data)
     }));
   }
 
   logout(): void {
     localStorage.removeItem('token');
-    this.currentUser.set(null);
+    // this.currentUser.set(null);
     this.router.navigate(['/login']);
   }
 }

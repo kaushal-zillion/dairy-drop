@@ -1,0 +1,189 @@
+<div class="cart-page py-4">
+    <app-header></app-header>
+    <div class="container mx-auto px-4">
+
+        <div class="page-heading sm:mt-25 mb-10">
+            <div class="heading-left">
+                <div class="section-eyebrow">
+                    <span class="eyebrow-dot"></span>Your Order
+                </div>
+                <h1 class="page-title">Shopping <span>Cart</span></h1>
+
+            </div>
+        </div>
+
+        <!-- ── Empty cart ── -->
+        @if (cartService.cart().length === 0) {
+        <div class="empty-cart">
+            <div class="empty-illustration">
+                <div class="empty-circle">
+                    <mat-icon>remove_shopping_cart</mat-icon>
+                </div>
+            </div>
+            <h2 class="empty-title">Your cart is empty</h2>
+            <p class="empty-sub">Looks like you haven't added any fresh dairy products yet.</p>
+            <a routerLink="/products" class="btn-shop-now">
+                Browse Products
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
+        </div>
+        }
+
+        @if (cartService.cart().length > 0) {
+        <div class="flex flex-wrap items-start">
+            <div class="lg:w-8/12 w-full  lg:pe-2 h-full">
+                <!-- Cart item cards -->
+                @for (item of cartService.cart(); track item._id) {
+                <div class="cart-item mb-4" [style.animation-delay]="$index * 60 + 'ms'">
+
+                    <!-- Product image -->
+                    <div class="item-image">
+                        <img [src]='item.image' [alt]="item.name">
+                    </div>
+
+                    <!-- Product info -->
+                    <div class="item-info">
+                        <div class="item-category">{{ item.category }}</div>
+                        <h3 class="item-name capitalize">{{ item.name }}</h3>
+                        <p class="item-desc">{{ item.description }}</p>
+                    </div>
+
+                    <!-- Quantity + Price -->
+                    <div class="item-right">
+                        <div class="item-price-row">
+                            <span class="item-price">₹{{ getProductSubTotal(item.price,item.qty) }}</span>
+                        </div>
+
+                        <div class="qty-control">
+                            <button class="qty-btn" (click)="decrease(item)" [disabled]="item.qty <= 1">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                </svg>
+                            </button>
+                            <span class="qty-value">{{ item.qty }}</span>
+                            <button class="qty-btn" (click)="increase(item)" [disabled]="item.qty >= +item.stock">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round">
+                                    <line x1="12" y1="5" x2="12" y2="19" />
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <button class="remove-btn" (click)="removeItem(item._id)" aria-label="Remove item">
+                            <mat-icon>delete_outline</mat-icon>
+                        </button>
+                    </div>
+
+                </div>
+                }
+
+            </div>
+
+            <!-- RIGHT: Order summary -->
+            <div class="lg:w-4/12 w-full  lg:ps-2 h-full">
+                <div class="sticky top-10">
+                    <!-- Order summary card -->
+                    <div class="summary-card mb-4">
+                        <h2 class="summary-title">Order Summary</h2>
+
+                        <div class="summary-lines">
+                            <p class="text-gray-500 capitalize">
+                                sub total: <span class="font-bold">{{subtotal() | currency:"INR"}}</span>
+                            </p>
+                            <p class="text-gray-500 capitalize">
+                                Shipping charge: <span class="font-bold">
+                                    @if (deliveryCharge() === 0 ) {
+                                    free
+                                    }@else {
+                                    {{deliveryCharge() | currency:"INR"}}
+                                    }
+                                </span>
+                            </p>
+                            @if (deliveryCharge() !== 0) {
+                            <p class="">Order above ₹299 to get free delivery.</p>
+                            }
+                        </div>
+
+                        <div class="summary-divider"></div>
+
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span class="total-amount">{{ totalAmount() | currency:"INR" }}</span>
+                        </div>
+
+                        <button class="btn-checkout" (click)="checkout()">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
+                                <polyline points="16 17 21 12 16 7" />
+                                <line x1="21" y1="12" x2="9" y2="12" />
+                            </svg>
+                            Proceed to Checkout
+                        </button>
+
+                        <div class="secure-note">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="11" width="18" height="11" rx="2" />
+                                <path d="M7 11V7a5 5 0 0110 0v4" />
+                            </svg>
+                            Secure checkout · SSL encrypted
+                        </div>
+
+                    </div>
+
+                    <!-- Delivery info card -->
+                    <div class="delivery-card">
+                        <div class="delivery-row">
+                            <div class="delivery-icon-wrap">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="1" y="3" width="15" height="13" rx="1" />
+                                    <path d="M16 8h4l3 5v3h-7V8z" />
+                                    <circle cx="5.5" cy="18.5" r="2.5" />
+                                    <circle cx="18.5" cy="18.5" r="2.5" />
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="delivery-row-title">Early Morning Delivery</div>
+                                <div class="delivery-row-sub">Order by midnight, get by 7AM</div>
+                            </div>
+                        </div>
+                        <div class="delivery-row">
+                            <div class="delivery-icon-wrap">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="delivery-row-title">100% Quality Guaranteed</div>
+                                <div class="delivery-row-sub">Fresh or full refund, no questions</div>
+                            </div>
+                        </div>
+                        <div class="delivery-row">
+                            <div class="delivery-icon-wrap">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                                    <polyline points="9 22 9 12 15 12 15 22" />
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="delivery-row-title">Farm to Doorstep</div>
+                                <div class="delivery-row-sub">Sourced fresh daily from local farms</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+
+    </div>
+</div>
