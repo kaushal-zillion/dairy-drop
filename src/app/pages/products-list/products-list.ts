@@ -6,6 +6,7 @@ import { ProductService } from '../../services/product.service';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-products-list',
@@ -17,6 +18,9 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 export class ProductsList implements OnInit {
   productService = inject(ProductService);
   cartService = inject(CartService);
+  toastr = inject(ToastrService);
+
+
   products = signal<Product[]>([])
   isLoading = signal<boolean>(false);
   searchQ = ''
@@ -60,6 +64,7 @@ export class ProductsList implements OnInit {
     let currentCart = this.cartService.cart();
     currentCart.push({ ...product, qty: 1 })
     this.cartService.cart.set(currentCart);
+    this.toastr.success('Added to cart..!', `${product.name.toUpperCase()}`);
     localStorage.setItem('dairy_cart', JSON.stringify(currentCart));
   }
 

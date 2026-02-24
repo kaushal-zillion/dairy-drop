@@ -97,6 +97,7 @@
 .nav-link {
   padding: 7px 15px;
   border-radius: 10px;
+  border: 1px solid transparent;
   font-size: 14px;
   font-weight: 500;
   color: var(--text);
@@ -105,30 +106,18 @@
   position: relative;
   white-space: nowrap;
   cursor: pointer;
+  box-shadow: 1px -2px 3px transparent;
 }
 
 .nav-link:hover {
-  color: var(--deep);
-  background: rgba(109, 213, 250, 0.12);
-  border: 1px solid var(--text);
+  border-color: #6DD5FA;
+  box-shadow: 1px -2px 3px var(--deep);
 }
 
-.nav-link.nav-active {
+.nav-active {
   color: var(--ocean);
   background: rgba(109, 213, 250, 0.15);
   font-weight: 700;
-}
-
-.nav-link.nav-active::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--ocean);
 }
 
 

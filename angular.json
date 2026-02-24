@@ -27,6 +27,7 @@
             ],
             "styles": [
               "src/material-theme.scss",
+              "node_modules/ngx-toastr/toastr.css",
               "src/styles.css"
             ]
           },

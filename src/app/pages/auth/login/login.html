@@ -39,7 +39,7 @@
                 <div class="field-wrap">
                     <mat-form-field appearance="outline" class="w-full dairy-field">
                         <mat-label>Email Address</mat-label>
-                        <input matInput type="email" formControlName="email" placeholder="you@gmail.com" />
+                        <input matInput type="email" id="email" formControlName="email" placeholder="you@gmail.com" />
                         <mat-icon matSuffix class="suffix-icon">mail</mat-icon>
                         @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
                         <mat-error>Please enter a valid email address</mat-error>
@@ -51,7 +51,7 @@
                 <div class="field-wrap">
                     <mat-form-field appearance="outline" class="w-full dairy-field">
                         <mat-label>Password</mat-label>
-                        <input matInput [type]="hide() ? 'password' : 'text'" formControlName="password" />
+                        <input matInput id="password" [type]="hide() ? 'password' : 'text'" formControlName="password" />
                         <button type="button" mat-icon-button matSuffix (click)="toggleVisibility($event)"
                             [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()" class="eye-btn">
                             <mat-icon>{{ hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
