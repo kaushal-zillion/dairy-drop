@@ -1,0 +1,126 @@
+<div class="orders-page">
+    <app-header></app-header>
+    <div class="container mx-auto px-6 py-14">
+
+        <div class="page-header">
+            <div>
+                <div class="section-eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    Your Account
+                </div>
+                <h1 class="page-title">My <span>Orders</span></h1>
+                <p class="page-subtitle">Track and manage all your DairyDrop deliveries</p>
+            </div>
+
+            <a routerLink="/products" class="btn-shop-more">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <path d="M16 10a4 4 0 01-8 0" />
+                </svg>
+                Shop More
+            </a>
+        </div>
+
+        <!-- ── Summary Cards ── -->
+        <div class="summary-strip">
+            <div class="sum-card">
+                <div class="sum-icon">
+                    <mat-icon>inventory_2</mat-icon>
+                </div>
+                <div>
+                    <div class="sum-val">{{ orders().length }}</div>
+                    <div class="sum-label">Total Orders</div>
+                </div>
+            </div>
+            <div class="sum-card sum-card-highlight">
+                <div class="sum-icon">₹</div>
+                <div>
+                    <div class="sum-val">₹{{ totalSpent() }}</div>
+                    <div class="sum-label">Total Spent</div>
+                </div>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="bg-white p-5 mb-6 rounded-3xl sm:min-w-80 shadow-2xs">
+                <input [(ngModel)]="dateInput" [max]="today" (ngModelChange)="updateDate($event)" type="date" class="w-full rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-gray-700 shadow-sm
+           focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200
+           outline-none transition" />
+            </div>
+        </div> 
+        <!-- ── Order Cards ── -->
+        <div class="orders-list">
+
+            @if (filteredOrders().length === 0) {
+            <div class="empty-state">
+                <div class="empty-icon">📭</div>
+                <h3>No orders found</h3>
+                <p>You haven't placed any orders yet.</p>
+                <a routerLink="/products" class="btn-browse">Browse Products</a>
+            </div>
+            }
+
+            @for (order of filteredOrders(); track order._id) {
+            <div class="order-card">
+                <div class="order-card-header">
+                    <div class="order-meta">
+                        <div class="order-id">
+                            Order #{{ order._id }}
+                        </div>
+                        <div class="order-date">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                            {{ order.createdAt |date:'dd MMM yyyy, hh:mm a' }}
+                        </div>
+                    </div>
+
+                    <div class="order-header-right">
+                        <div class="pay-status" [class]="'status-' + order.paystatus.toLowerCase()">
+                            <span class="status-dot"></span>
+                            {{ order.paystatus }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products -->
+                <div class="products-section">
+                    <div class="products-label">Items Ordered</div>
+                    <div class="products-list">
+                        @for (item of order.products; track item._id) {
+                        <div class="product-row">
+                            <div class="product-row-left">
+                                <div class="product-emoji-wrap">
+                                    <img [src]="item.product.image" [alt]="item.product.name">
+                                </div>
+                                <div class="product-row-info">
+                                    <span class="product-row-name">{{ item.product.name }}</span>
+                                    <span class="product-row-cat">{{ item.product.category }}</span>
+                                </div>
+                            </div>
+                            <div class="product-row-right">
+                                <span class="product-qty">×{{ item.quantity }}</span>
+                                <span class="product-row-price">₹{{ item.product.price }}</span>
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </div>
+                <!-- order-footer -->
+                <div class="flex justify-end px-6 pb-3">
+                    <div>
+                        <span class="text-blue-950 font-bold">Total amount : </span>
+                        <span class="px-3.5 text-blue-950 font-bold">{{order.totalAmount | currency:'INR'}}</span>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+    </div>
+</div>

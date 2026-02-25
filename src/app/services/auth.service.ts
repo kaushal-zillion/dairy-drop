@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { LoginCredentials, LoginResponse, User } from '../models/user.model';
 import { tap } from 'rxjs';
 import { Router } from '@angular/router';
@@ -12,8 +12,7 @@ export class AuthService {
   http = inject(HttpClient);
   router = inject(Router);
 
-  baseUrl = 'http://localhost:8000/api';
-
+  baseUrl = 'http://localhost:8000/api'
   // currentUser = signal<UserInfo | null>(null)
   login(credentials: LoginCredentials) {
     return this.http.post<LoginResponse>(`${this.baseUrl}/auth/login`, credentials).pipe(tap(res => {

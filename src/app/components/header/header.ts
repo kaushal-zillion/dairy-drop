@@ -13,8 +13,8 @@ export class Header {
   authService = inject(AuthService);
   cartService = inject(CartService)
   router = inject(Router);
-
   menuOpen = signal<boolean>(false);
+  token = localStorage.getItem('token');
   // currentUser = computed(() => this.authService.currentUser());
 
   toggleMobileMenu(): void {

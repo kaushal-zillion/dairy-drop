@@ -9,5 +9,6 @@ export const routes: Routes = [
     { path: 'login', component: Login },
     { path: 'signup', component: Signup },
     { path: 'products', canActivate: [authGuardGuard], loadComponent: () => import('./pages/products-list/products-list').then(m => m.ProductsList) },
-    { path: 'cart', canActivate: [authGuardGuard], loadComponent: () => import('./pages/cart/cart').then(m => m.Cart) }
+    { path: 'cart', canActivate: [authGuardGuard], loadComponent: () => import('./pages/cart/cart').then(m => m.Cart) },
+    { path: 'my-order', canActivate: [authGuardGuard], loadComponent: () => import('./pages/my-order/my-order').then(m => m.MyOrder) }
 ];
