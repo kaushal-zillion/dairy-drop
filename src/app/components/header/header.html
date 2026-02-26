@@ -29,6 +29,7 @@
             <a routerLink="/contact" routerLinkActive="nav-active" [routerLinkActiveOptions]="{ exact: true }"
                 class="nav-link">Contact</a>
         </nav>
+        @if (token) {
         <div class="header-actions">
             <button type="button" class="cart-btn" routerLink="/cart" aria-label="View cart">
                 <span class="btn-icon-wrap">
@@ -47,7 +48,7 @@
             <div class="action-divider" aria-hidden="true"></div>
 
             <!-- Logout button -->
-            @if (token) {
+
             <button type="button" class="logout-btn" (click)="authService.logout()" aria-label="Sign out">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
                     stroke-linecap="round" stroke-linejoin="round">
@@ -57,10 +58,10 @@
                 </svg>
                 <span class="btn-label">Logout</span>
             </button>
-            }
-
         </div>
-
+        }@else {
+        <a routerLink="/login" class="nav-active nav-link sm:inline hidden">Login</a>
+        }
         <!-- ── Mobile menu toggle -->
         <button class="mobile-menu-btn" type="button" (click)="toggleMobileMenu()" [attr.aria-expanded]="menuOpen()"
             aria-label="Toggle menu">
@@ -78,7 +79,10 @@
             <a routerLink="/products" (click)="closeMobileMenu()" class="mobile-link">🥛 Products</a>
             <a routerLink="/about" (click)="closeMobileMenu()" class="mobile-link">ℹ️ About</a>
             <a routerLink="/contact" (click)="closeMobileMenu()" class="mobile-link">✉️ Contact</a>
+            @if (!token) { <a routerLink="/login" class="nav-active nav-link">Login</a>
+            }
         </nav>
+        @if (token) {
         <div class="mobile-actions">
             <button routerLink="/cart" (click)="closeMobileMenu()" class="mobile-cart-btn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -101,6 +105,7 @@
                 Logout
             </button>
         </div>
+        }
     </div>
 </header>
 <div class="header-spacer"></div>

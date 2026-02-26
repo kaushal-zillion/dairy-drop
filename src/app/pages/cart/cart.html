@@ -30,9 +30,16 @@
                 </svg>
             </a>
         </div>
-        }
+        }@else {
 
-        @if (cartService.cart().length > 0) {
+        @if (cartService.isLoading()) {
+        <div class="mt-52 flex justify-center">
+            <div>
+                <mat-spinner></mat-spinner>
+                <p class="mt-4 text-lg text-blue-900">Fetching data...</p>
+            </div>
+        </div>
+        }@else {
         <div class="flex flex-wrap items-start">
             <div class="lg:w-8/12 w-full  lg:pe-2 h-full">
                 <!-- Cart item cards -->
@@ -105,7 +112,8 @@
                                 </span>
                             </p>
                             @if (deliveryCharge() !== 0) {
-                            <p class="border border-gray-300 text-gray-600 text-center p-2 rounded-lg">Order above ₹299 to get free delivery.</p>
+                            <p class="border border-gray-300 text-gray-600 text-center p-2 rounded-lg">Order above ₹299
+                                to get free delivery.</p>
                             }
                         </div>
 
@@ -183,6 +191,7 @@
                 </div>
             </div>
         </div>
+        }
         }
 
     </div>

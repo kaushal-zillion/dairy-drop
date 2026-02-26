@@ -21,26 +21,27 @@
                                 (ngModelChange)="onSearchChange()" placeholder="Search products…" />
                         </div>
                     </div>
-
-                    <!-- filter -->
-                    <div class="flex gap-3 justify-center sm:mt-0 mt-4">
-                        <button
-                            class="border border-blue-200 bg-white text-blue-800 px-4 cursor-pointer rounded-3xl py-2"
-                            (click)="setCategory('all')">All</button>
-                        <button
-                            class="border border-blue-200 bg-white text-blue-800 px-4 cursor-pointer rounded-3xl py-2"
-                            (click)="setCategory('dairy')">Dairy</button>
-                        <button
-                            class="border border-blue-200 bg-white text-blue-800 px-4 cursor-pointer rounded-3xl py-2"
-                            (click)="setCategory('milk')">Milk</button>
-                        <button
-                            class="border border-blue-200 bg-white text-blue-800 px-4 cursor-pointer rounded-3xl py-2"
-                            (click)="setCategory('sweets')">Sweets</button>
-                    </div>
+                    <mat-form-field>
+                        <mat-label>Category</mat-label>
+                        <mat-select (selectionChange)="setCategory($event)">
+                            <mat-option value="all">All</mat-option>
+                            <mat-option value="dairy">Dairy</mat-option>
+                            <mat-option value="milk">Milk</mat-option>
+                            <mat-option value="sweets">Sweets</mat-option>
+                        </mat-select>
+                    </mat-form-field>
                 </div>
             </div>
 
             <!-- ── Product ── -->
+            @if (isLoading()) {
+            <div class="flex justify-center mt-52">
+                <div>
+                    <mat-spinner></mat-spinner>
+                </div>
+            </div>
+            }@else {
+
             <div class="flex flex-wrap">
                 @for (product of visibleProducts(); track product._id) {
                 <div class="xl:w-3/12 lg:w-6/12 w-full px-4 mb-8">
@@ -116,6 +117,7 @@
                     [pageSizeOptions]="[4,8]" (page)="handlePageEvent($event)" aria-label="Select page"></mat-paginator>
                 }
             </div>
+            }
         </div>
 
     </div>

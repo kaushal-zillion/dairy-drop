@@ -23,6 +23,13 @@
             </a>
         </div>
 
+        @if (isLoading()) {
+        <div class="flex justify-center mt-52">
+            <div>
+                <mat-spinner></mat-spinner>
+            </div>
+        </div>
+        }@else {
         <!-- ── Summary Cards ── -->
         <div class="summary-strip">
             <div class="sum-card">
@@ -45,10 +52,10 @@
         <div class="flex">
             <div class="bg-white p-5 mb-6 rounded-3xl sm:min-w-80 shadow-2xs">
                 <input [(ngModel)]="dateInput" [max]="today" (ngModelChange)="updateDate($event)" type="date" class="w-full rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-gray-700 shadow-sm
-           focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200
-           outline-none transition" />
+               focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200
+               outline-none transition" />
             </div>
-        </div> 
+        </div>
         <!-- ── Order Cards ── -->
         <div class="orders-list">
 
@@ -112,7 +119,8 @@
                     </div>
                 </div>
                 <!-- order-footer -->
-                <div class="flex justify-end px-6 pb-3">
+                <div class="flex justify-between items-center px-6 pb-3">
+                    <button class="order-again cursor-pointer" (click)="onNavigateTo(order._id)">Order again</button>
                     <div>
                         <span class="text-blue-950 font-bold">Total amount : </span>
                         <span class="px-3.5 text-blue-950 font-bold">{{order.totalAmount | currency:'INR'}}</span>
@@ -121,6 +129,7 @@
             </div>
             }
         </div>
+        }
 
     </div>
 </div>

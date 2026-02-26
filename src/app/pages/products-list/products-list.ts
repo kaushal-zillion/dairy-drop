@@ -7,10 +7,13 @@ import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
-
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 @Component({
   selector: 'app-products-list',
-  imports: [Header, MatIcon, FormsModule, MatPaginatorModule],
+  imports: [Header, MatIcon, FormsModule, MatPaginatorModule, MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatFormFieldModule],
   templateUrl: './products-list.html',
   styleUrl: './products-list.css',
 })
@@ -19,7 +22,6 @@ export class ProductsList implements OnInit {
   productService = inject(ProductService);
   cartService = inject(CartService);
   toastr = inject(ToastrService);
-
 
   products = signal<Product[]>([])
   isLoading = signal<boolean>(false);
@@ -51,8 +53,8 @@ export class ProductsList implements OnInit {
     this.pageIndex.set(e.pageIndex);
   }
 
-  setCategory(cat: string) {
-    this.category.set(cat);
+  setCategory(e: any) {
+    this.category.set(e.value);
   }
 
   onSearchChange() {

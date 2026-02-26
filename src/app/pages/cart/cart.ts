@@ -1,26 +1,29 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CartProduct } from '../../models/product.model';
 import { Header } from "../../components/header/header";
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatIcon } from "@angular/material/icon";
 import { CartService } from '../../services/cart.service';
 import { CurrencyPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
-import { OrderResponse } from '../../models/order.model';
+import { ProductService } from '../../services/product.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @Component({
   selector: 'app-cart',
-  imports: [Header, RouterLink, MatIcon, CurrencyPipe],
+  imports: [Header, RouterLink, MatIcon, CurrencyPipe, MatProgressSpinnerModule],
   templateUrl: './cart.html',
   styleUrl: './cart.css',
 })
 
-export class Cart {
-  // cartItems = signal<CartProduct[]>([]);
+export class Cart implements OnInit {
   cartService = inject(CartService);
+  productService = inject(ProductService);
   private http = inject(HttpClient);
+  route = inject(ActivatedRoute)
   toastr = inject(ToastrService);
 
   increase(item: CartProduct): void {
@@ -116,6 +119,32 @@ export class Cart {
       this.toastr.error('Payment failed ❌');
     });
     rzp.open();
+  }
+
+  ngOnInit(): void {
+    const orderId = this.route.snapshot.paramMap.get('id');
+    if (orderId) {
+      this.cartService.isLoading.set(true)
+      const token = localStorage.getItem('token');
+      this.productService.getOrders(token as string).pipe(map(orders => orders.find(order => order._id === orderId))).subscribe({
+        next: (order) => {
+          console.log(order?.products);
+          const arr = order?.products.map(o => {
+            return { ...o.product, qty: o.quantity }
+          })
+          // console.log(arr);
+          this.cartService.cart.set(arr as CartProduct[])
+          this.cartService.isLoading.set(false)
+        },
+        error: err => {
+          if (err) {
+            this.toastr.error('something went wrong..!');
+          }
+          this.cartService.isLoading.set(false)
+          console.log(err)
+        }
+      })
+    }
   }
 
 }

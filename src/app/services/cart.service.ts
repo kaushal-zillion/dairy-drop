@@ -6,7 +6,7 @@ import { CartProduct } from '../models/product.model';
 })
 export class CartService {
   cart = signal<CartProduct[]>([]);
-
+  isLoading = signal<boolean>(false);
   constructor() {
     const storedCart = localStorage.getItem('dairy_cart');
     if (storedCart) {
