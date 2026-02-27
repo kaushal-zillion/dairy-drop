@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Header } from "../../components/header/header";
 import { Router, RouterLink } from '@angular/router';
@@ -8,12 +8,17 @@ import { ProductService } from '../../services/product.service';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ToastrService } from 'ngx-toastr';
-
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { toDate } from '../../utils/date.util';
 @Component({
   selector: 'app-my-order',
-  imports: [FormsModule, Header, RouterLink, MatIcon, DatePipe, CurrencyPipe, MatProgressSpinnerModule],
+  imports: [FormsModule, Header, RouterLink, MatIcon, DatePipe, CurrencyPipe, MatProgressSpinnerModule, MatDatepickerModule, MatFormFieldModule],
   templateUrl: './my-order.html',
   styleUrl: './my-order.css',
+  providers: [provideNativeDateAdapter()],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class MyOrder implements OnInit {
@@ -23,19 +28,41 @@ export class MyOrder implements OnInit {
   productService = inject(ProductService);
   isLoading = signal<boolean>(false);
   dateInput = signal<string | null>(null)
-  today = new Date().toISOString().split('T')[0];
+  startDate = signal<Date | null>(null)
+  endDate = signal<Date | null>(null)
 
-  updateDate(value: string) {
-    this.dateInput.set(value);
-    console.log(this.dateInput());
-  }
-
+  today: Date = new Date();
+  
   filteredOrders = computed(() => {
-    const date = this.dateInput();
-    if (!date) return this.orders();
-    return this.orders().filter(order => order.createdAt.startsWith(date));
+    const start = this.startDate();
+    const end = this.endDate();
+    const orders = this.orders();
+
+    if (!start && !end) return orders;
+
+    const todayStr = toDate(new Date());
+    const startStr = start ? toDate(start) : null;
+    const endStr = end ? toDate(end) : todayStr;
+
+    return orders.filter(order => {
+      const orderStr = toDate(new Date(order.createdAt));
+
+      if (startStr && !end) {
+        return orderStr >= startStr && orderStr <= todayStr;
+      }
+
+      if (!startStr && endStr) {
+        return orderStr <= endStr;
+      }
+
+      return orderStr >= startStr! && orderStr <= endStr!;
+    });
   });
 
+  clearRange() {
+    this.startDate.set(null);
+    this.endDate.set(null);
+  }
   onNavigateTo(id: string) {
     this.toastr.info('Items added to your cart.')
     this.router.navigate(['/order-repeat', id])

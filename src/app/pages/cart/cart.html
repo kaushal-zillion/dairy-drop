@@ -1,24 +1,28 @@
-<div class="cart-page py-4">
+<div class="cart-page">
     <app-header></app-header>
-    <div class="container mx-auto px-4">
 
-        <div class="page-heading sm:mt-25 mb-10">
-            <div class="heading-left">
-                <div class="section-eyebrow">
-                    <span class="eyebrow-dot"></span>Your Order
-                </div>
-                <h1 class="page-title">Shopping <span>Cart</span></h1>
-
-            </div>
+    <!-- ── Page Hero ── -->
+    <div class="page-hero">
+        <div class="page-hero-bg" aria-hidden="true">
+            <div class="ph-orb ph-orb-1"></div>
+            <div class="ph-orb ph-orb-2"></div>
+            <div class="ph-grid"></div>
         </div>
+        <div class="container mx-auto px-6 page-hero-inner">
+            <div class="section-eyebrow">
+                <span class="eyebrow-dot"></span>Your Order
+            </div>
+            <h1 class="page-title">Shopping <span>Cart</span></h1>
+        </div>
+    </div>
 
-        <!-- ── Empty cart ── -->
+    <div class="container mx-auto px-6 cart-main">
+
+        <!-- ── Empty Cart ── -->
         @if (cartService.cart().length === 0) {
         <div class="empty-cart">
-            <div class="empty-illustration">
-                <div class="empty-circle">
-                    <mat-icon>remove_shopping_cart</mat-icon>
-                </div>
+            <div class="empty-circle">
+                <mat-icon>remove_shopping_cart</mat-icon>
             </div>
             <h2 class="empty-title">Your cart is empty</h2>
             <p class="empty-sub">Looks like you haven't added any fresh dairy products yet.</p>
@@ -30,57 +34,57 @@
                 </svg>
             </a>
         </div>
-        }@else {
+        } @else {
 
+        <!-- ── Loading ── -->
         @if (cartService.isLoading()) {
-        <div class="mt-52 flex justify-center">
-            <div>
-                <mat-spinner></mat-spinner>
-                <p class="mt-4 text-lg text-blue-900">Fetching data...</p>
-            </div>
+        <div class="cart-loading">
+            <mat-spinner></mat-spinner>
+            <p class="loading-text">Fetching your cart…</p>
         </div>
-        }@else {
-        <div class="flex flex-wrap items-start">
-            <div class="lg:w-8/12 w-full  lg:pe-2 h-full">
-                <!-- Cart item cards -->
-                @for (item of cartService.cart(); track item._id) {
-                <div class="cart-item mb-4" [style.animation-delay]="$index * 60 + 'ms'">
+        } @else {
 
-                    <!-- Product image -->
-                    <div class="item-image">
-                        <img [src]='item.image' [alt]="item.name">
+        <div class="flex flex-wrap">
+
+            <!-- ── LEFT: Cart Items ── -->
+            <div class="xl:w-8/12 w-full xl:pe-3">
+                @for (item of cartService.cart(); track item._id) {
+                <div class="cart-item mb-3" [style.animation-delay]="$index * 60 + 'ms'">
+                    <!-- Image -->
+                    <div class="item-image-wrap">
+                        <img [src]="item.image" [alt]="item.name" class="item-img" />
                     </div>
 
-                    <!-- Product info -->
+                    <!-- Info -->
                     <div class="item-info">
-                        <div class="item-category">{{ item.category }}</div>
+                        <span class="item-category">{{ item.category }}</span>
                         <h3 class="item-name capitalize">{{ item.name }}</h3>
                         <p class="item-desc">{{ item.description }}</p>
-                    </div>
 
-                    <!-- Quantity + Price -->
-                    <div class="item-right">
-                        <div class="item-price-row">
-                            <span class="item-price">₹{{ getProductSubTotal(item.price,item.qty) }}</span>
-                        </div>
-
+                        <!-- Qty control (mobile-friendly placement) -->
                         <div class="qty-control">
-                            <button class="qty-btn" (click)="decrease(item)" [disabled]="item.qty <= 1">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            <button class="qty-btn" (click)="decrease(item)" [disabled]="item.qty <= 1"
+                                aria-label="Decrease">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round">
                                     <line x1="5" y1="12" x2="19" y2="12" />
                                 </svg>
                             </button>
                             <span class="qty-value">{{ item.qty }}</span>
-                            <button class="qty-btn" (click)="increase(item)" [disabled]="item.qty >= +item.stock">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            <button class="qty-btn" (click)="increase(item)" [disabled]="item.qty >= +item.stock"
+                                aria-label="Increase">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2.5" stroke-linecap="round">
                                     <line x1="12" y1="5" x2="12" y2="19" />
                                     <line x1="5" y1="12" x2="19" y2="12" />
                                 </svg>
                             </button>
                         </div>
+                    </div>
 
+                    <!-- Price + Remove -->
+                    <div class="item-right">
+                        <span class="item-price">₹{{ getProductSubTotal(item.price, item.qty) }}</span>
                         <button class="remove-btn" (click)="removeItem(item._id)" aria-label="Remove item">
                             <mat-icon>delete_outline</mat-icon>
                         </button>
@@ -88,44 +92,51 @@
 
                 </div>
                 }
-
             </div>
 
-            <!-- RIGHT: Order summary -->
-            <div class="lg:w-4/12 w-full  lg:ps-2 h-full">
-                <div class="sticky top-10">
+            <!-- ── RIGHT: Summary ── -->
+            <div class="xl:w-4/12 w-full xl:ps-3">
+                <div class="summary-sticky">
+
                     <!-- Order summary card -->
-                    <div class="summary-card mb-4">
+                    <div class="summary-card">
                         <h2 class="summary-title">Order Summary</h2>
 
                         <div class="summary-lines">
-                            <p class="text-gray-500 capitalize">
-                                sub total: <span class="font-bold">{{subtotal() | currency:"INR"}}</span>
-                            </p>
-                            <p class="text-gray-500 capitalize">
-                                Shipping charge: <span class="font-bold">
-                                    @if (deliveryCharge() === 0 ) {
-                                    free
-                                    }@else {
-                                    {{deliveryCharge() | currency:"INR"}}
-                                    }
+                            <div class="summary-line">
+                                <span class="summary-line-label">Subtotal</span>
+                                <span class="summary-line-value">{{ subtotal() | currency:"INR" }}</span>
+                            </div>
+                            <div class="summary-line">
+                                <span class="summary-line-label">Shipping</span>
+                                <span class="summary-line-value" [class.free-tag]="deliveryCharge() === 0">
+                                    @if (deliveryCharge() === 0) { Free } @else { {{ deliveryCharge() | currency:"INR"
+                                    }} }
                                 </span>
-                            </p>
-                            @if (deliveryCharge() !== 0) {
-                            <p class="border border-gray-300 text-gray-600 text-center p-2 rounded-lg">Order above ₹299
-                                to get free delivery.</p>
-                            }
+                            </div>
                         </div>
+
+                        @if (deliveryCharge() !== 0) {
+                        <div class="free-delivery-nudge">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="8" x2="12" y2="12" />
+                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                            </svg>
+                            Add ₹{{ 299 - subtotal() }} more for <strong>free delivery</strong>
+                        </div>
+                        }
 
                         <div class="summary-divider"></div>
 
-                        <div class="summary-total">
-                            <span>Total</span>
-                            <span class="total-amount">{{ totalAmount() | currency:"INR" }}</span>
+                        <div class="summary-total-row">
+                            <span class="summary-total-label">Total</span>
+                            <span class="summary-total-amount">{{ totalAmount() | currency:"INR" }}</span>
                         </div>
 
                         <button class="btn-checkout" (click)="onCheckout()">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
                                 <polyline points="16 17 21 12 16 7" />
@@ -135,21 +146,20 @@
                         </button>
 
                         <div class="secure-note">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="3" y="11" width="18" height="11" rx="2" />
                                 <path d="M7 11V7a5 5 0 0110 0v4" />
                             </svg>
                             Secure checkout · SSL encrypted
                         </div>
-
                     </div>
 
                     <!-- Delivery info card -->
                     <div class="delivery-card">
                         <div class="delivery-row">
                             <div class="delivery-icon-wrap">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="1" y="3" width="15" height="13" rx="1" />
                                     <path d="M16 8h4l3 5v3h-7V8z" />
@@ -164,7 +174,7 @@
                         </div>
                         <div class="delivery-row">
                             <div class="delivery-icon-wrap">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                                 </svg>
@@ -176,7 +186,7 @@
                         </div>
                         <div class="delivery-row">
                             <div class="delivery-icon-wrap">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
                                     <polyline points="9 22 9 12 15 12 15 22" />
@@ -188,6 +198,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>

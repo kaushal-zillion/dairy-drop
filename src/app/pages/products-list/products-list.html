@@ -1,124 +1,142 @@
-<section class="h-screen">
+<section class="products-page">
     <app-header></app-header>
-    <div class="container mx-auto">
-        <div class="sm:py-25 py-4">
-            <div class="mb-9 px-4">
-                <div class="mb-8">
-                    <div class="section-eyebrow">
-                        <span class="eyebrow-dot"></span>
-                        Fresh Collection
-                    </div>
-                    <h1 class="page-title">Our <span>Dairy</span> Products</h1>
-                    <p class="page-subtitle">Farm-fresh goodness delivered straight to your door every morning</p>
-                </div>
 
-                <div class="sm:flex justify-between items-center flex-wrap">
-                    <!-- Search + Filter bar -->
-                    <div class="toolbar">
-                        <div class="search-wrap">
-                            <mat-icon class="search-icon">search</mat-icon>
-                            <input type="text" class="search-input" [(ngModel)]="searchQ"
-                                (ngModelChange)="onSearchChange()" placeholder="Search products…" />
-                        </div>
-                    </div>
-                    <mat-form-field>
-                        <mat-label>Category</mat-label>
-                        <mat-select (selectionChange)="setCategory($event)">
-                            <mat-option value="all">All</mat-option>
-                            <mat-option value="dairy">Dairy</mat-option>
-                            <mat-option value="milk">Milk</mat-option>
-                            <mat-option value="sweets">Sweets</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+    <!-- ── Page Hero ── -->
+    <div class="page-hero">
+        <div class="page-hero-bg" aria-hidden="true">
+            <div class="ph-orb ph-orb-1"></div>
+            <div class="ph-orb ph-orb-2"></div>
+            <div class="ph-grid"></div>
+        </div>
+        <div class="container mx-auto px-6 page-hero-inner">
+            <div class="section-eyebrow">
+                <span class="eyebrow-dot"></span>
+                Fresh Collection
+            </div>
+            <h1 class="page-title">Our <span>Dairy</span> Products</h1>
+            <p class="page-subtitle">Farm-fresh goodness delivered straight to your door every morning</p>
+        </div>
+    </div>
+
+    <!-- ── Main Content ── -->
+    <div class="container mx-auto px-6 products-main">
+
+        <!-- ── Toolbar ── -->
+        <div class="toolbar-row">
+            <div class="search-wrap">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input type="text" class="search-input" [(ngModel)]="searchQ" (ngModelChange)="onSearchChange()"
+                    placeholder="Search products…" />
             </div>
 
-            <!-- ── Product ── -->
-            @if (isLoading()) {
-            <div class="flex justify-center mt-52">
-                <div>
-                    <mat-spinner></mat-spinner>
-                </div>
+            <div class="filter-row">
+                <mat-form-field class="category-select" appearance="outline">
+                    <mat-label>Category</mat-label>
+                    <mat-select (selectionChange)="setCategory($event)">
+                        <mat-option value="all">All</mat-option>
+                        <mat-option value="dairy">Dairy</mat-option>
+                        <mat-option value="milk">Milk</mat-option>
+                        <mat-option value="sweets">Sweets</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
-            }@else {
+        </div>
 
-            <div class="flex flex-wrap">
-                @for (product of visibleProducts(); track product._id) {
-                <div class="xl:w-3/12 lg:w-6/12 w-full px-4 mb-8">
-                    <div class="product-card h-full">
-                        <!-- Image -->
-                        <div class="product-image-wrap">
-                            <div class="product-image-bg">
-                                <img [src]='product.image' [alt]="product.name">
-                            </div>
-                            <div class="image-overlay">
-                                <button class="quick-view-btn">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
-                                    Quick View
-                                </button>
-                            </div>
-                        </div>
-                        <!-- Card body -->
-                        <div class="product-body h-50 flex justify-between flex-col">
-                            <div>
-                                <div class="product-category-tag">{{ product.category }}</div>
-                                <h3 class="product-name capitalize w-full">{{ product.name }}</h3>
-                                <p class="product-desc capitalize w-full">{{ product.description }}</p>
-                            </div>
-
-                            <!-- Price + Add to cart -->
-                            <div class="product-footer">
-                                <div class="price-wrap">
-                                    <span class="current-price">₹{{ product.price }}</span>
-                                    <span class="price-unit">/ {{ getUnit(product.category) }}</span>
-                                </div>
-
-                                <button class="add-to-cart-btn" (click)="addToCart(product)"
-                                    [class.added]="isAdded(product._id)" [disabled]="isAdded(product._id)">
-                                    @if (isAdded(product._id )) {
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                        <polyline points="20 6 9 17 4 12" />
-                                    </svg>
-                                    } @else {
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
-                                        <line x1="3" y1="6" x2="21" y2="6" />
-                                        <path d="M16 10a4 4 0 01-8 0" />
-                                    </svg>
-                                    }
-                                    <span>{{ isAdded(product._id) ? 'Added!' : 'Add to Cart' }}</span>
-                                </button>
-                            </div>
-                        </div>
-
+        <!-- ── Loading ── -->
+        @if (isLoading()) {
+        <div class="loading-state">
+            <div class="loading-grid">
+                <div class="skeleton-card" *ngFor="let i of [1,2,3,4]">
+                    <div class="skeleton-img"></div>
+                    <div class="skeleton-body">
+                        <div class="skeleton-line sk-short"></div>
+                        <div class="skeleton-line sk-long"></div>
+                        <div class="skeleton-line sk-med"></div>
                     </div>
                 </div>
-                }
-
-                <!-- Empty state -->
-                @if (filteredProducts().length ===0) {
-                <div class="empty-state">
-                    <div class="empty-emoji">🔍</div>
-                    <h3>No products found</h3>
-                    <p>Try a different search or category</p>
-                    <!-- <button class="chip active">Clear filters</button> -->
-                </div>
-                }
             </div>
-            <div class="px-4">
-                @if (filteredProducts().length >0) {
-                <mat-paginator [length]="filteredProducts().length" [pageSize]="pageSize()" [pageIndex]="pageIndex()"
-                    [pageSizeOptions]="[4,8]" (page)="handlePageEvent($event)" aria-label="Select page"></mat-paginator>
-                }
+        </div>
+        } @else {
+
+        <!-- ── Products Grid ── -->
+        <div class="products-grid">
+            @for (product of visibleProducts(); track product._id) {
+            <div class="product-card h-full" [class.in-cart]="isAdded(product._id)">
+                <!-- Image zone -->
+                <div class="product-image-wrap">
+                    <div class="product-image-bg">
+                        <img [src]="product.image" [alt]="product.name" class="product-img" />
+                    </div>
+                    <div class="image-overlay">
+                        <button class="quick-view-btn" (click)="quickview.set(product)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                            Quick View
+                        </button>
+                    </div>
+                    <div class="product-badge">{{ product.category }}</div>
+                </div>
+
+                <!-- Card body -->
+                <div class="product-body">
+                    <h3 class="product-name capitalize">{{ product.name }}</h3>
+                    <p class="product-desc capitalize">{{ product.description }}</p>
+
+                    <!-- Footer -->
+                    <div class="product-footer">
+                        <div class="price-wrap">
+                            <span class="current-price">₹{{ product.price }}</span>
+                            <span class="price-unit">/ {{ getUnit(product.category) }}</span>
+                        </div>
+
+                        <button class="add-to-cart-btn" (click)="addToCart(product)"
+                            [class.added]="isAdded(product._id)" [disabled]="isAdded(product._id)">
+                            @if (isAdded(product._id)) {
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Added!
+                            } @else {
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z" />
+                                <line x1="3" y1="6" x2="21" y2="6" />
+                                <path d="M16 10a4 4 0 01-8 0" />
+                            </svg>
+                            Add to Cart
+                            }
+                        </button>
+                    </div>
+                </div>
+            </div>
+            }
+
+            <!-- Empty state -->
+            @if (filteredProducts().length === 0) {
+            <div class="empty-state">
+                <div class="empty-icon">🔍</div>
+                <h3 class="empty-title">No products found</h3>
+                <p class="empty-sub">Try a different search or category</p>
             </div>
             }
         </div>
 
+        <!-- ── Paginator ── -->
+        @if (filteredProducts().length > 0) {
+        <div class="paginator-wrap">
+            <mat-paginator [length]="filteredProducts().length" [pageSize]="pageSize()" [pageIndex]="pageIndex()"
+                [pageSizeOptions]="[4,8]" (page)="handlePageEvent($event)" aria-label="Select page"></mat-paginator>
+        </div>
+        }
+        }
     </div>
+    @if (quickview()) {
+    <app-modal [product]="quickview()" (close)="quickview.set(null)" [isAdded]="isAdded(quickview()?._id)"
+        (add)="addToCart(quickview())"></app-modal>
+    }
+
 </section>

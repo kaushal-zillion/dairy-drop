@@ -11,9 +11,11 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { Modal } from "../../components/modal/modal";
 @Component({
   selector: 'app-products-list',
-  imports: [Header, MatIcon, FormsModule, MatPaginatorModule, MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatFormFieldModule],
+  imports: [Header, MatIcon, CommonModule, FormsModule, MatPaginatorModule, MatProgressSpinnerModule, MatInputModule, MatSelectModule, MatFormFieldModule, Modal],
   templateUrl: './products-list.html',
   styleUrl: './products-list.css',
 })
@@ -30,6 +32,8 @@ export class ProductsList implements OnInit {
   category = signal<string>('all');
   pageSize = signal(8);
   pageIndex = signal(0);
+  quickview = signal<any>(null);
+
 
   filteredProducts = computed(() => {
     const word = this.searchInput().toLowerCase();

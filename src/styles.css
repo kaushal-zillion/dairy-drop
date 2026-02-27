@@ -21,12 +21,12 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #2980B9;
+    background: #dcf7ea;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #0d2d44;
+    background: #0f172a;
     border-radius: 5px;
 }
 

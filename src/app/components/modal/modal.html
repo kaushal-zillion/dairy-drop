@@ -1,0 +1,54 @@
+<div class="qv-overlay">
+    <div class="qv-modal">
+
+        <button class="qv-close-btn" aria-label="Close modal" (click)="closeModal()">
+            <mat-icon>close</mat-icon>
+        </button>
+
+        <div class="qv-grid">
+
+            <!-- IMAGE -->
+            <div class="qv-visual">
+                <div class="qv-visual-inner">
+                    <img [src]="product?.image" alt="Fresh Tomatoes" class="qv-main-img">
+                </div>
+                <div class="qv-orb"></div>
+            </div>
+
+            <!-- DETAILS -->
+            <div class="qv-details">
+
+                <div class="section-eyebrow capitalize">
+                    <span class="eyebrow-dot"></span>
+                    {{product?.category}}
+                </div>
+
+                <h2 class="qv-title capitalize">{{product?.name}}</h2>
+
+                <div class="qv-price-row">
+                    <span class="qv-amount">{{product?.price | currency : 'INR'}}</span>
+                </div>
+
+                <div class="qv-divider"></div>
+
+                <div class="qv-description-box">
+                    <p class="qv-desc-text">
+                        {{product?.description}}
+                    </p>
+                </div>
+
+                <div class="qv-footer">
+                    <button class="add-to-cart-btn" (click)="addToCart()" [class.added]="isAdded" [disabled]="isAdded">
+                        <mat-icon>shopping_cart</mat-icon>
+                        {{isAdded ? "Added!" :"Add to cart"}}
+                    </button>
+
+                    <p class="secure-note">
+                        Secure farm-to-door logistics
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

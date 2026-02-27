@@ -1,0 +1,1 @@
+export const toDate = (d: Date) => d.toLocaleDateString('en-CA');

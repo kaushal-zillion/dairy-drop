@@ -1,37 +1,17 @@
 <div class="home-page">
     <app-header></app-header>
+
+    <!-- ── HERO ── -->
     <section class="hero-section">
-        <!-- Animated background -->
         <div class="hero-bg" aria-hidden="true">
-            <div class="hero-blob blob-a"></div>
-            <div class="hero-blob blob-b"></div>
-            <div class="hero-blob blob-c"></div>
-            <div class="hero-grid"></div>
+            <div class="hero-noise"></div>
+            <div class="hero-orb orb-1"></div>
+            <div class="hero-orb orb-2"></div>
+            <div class="hero-orb orb-3"></div>
+            <div class="hero-lines"></div>
         </div>
 
-        <!-- Floating drop decorations -->
-        <div class="drops-layer" aria-hidden="true">
-            <svg class="fdrop fdrop-1" viewBox="0 0 60 78" fill="none">
-                <path d="M30 0C30 0 0 32 0 50C0 65.4 13.4 78 30 78C46.6 78 60 65.4 60 50C60 32 30 0 30 0Z"
-                    fill="#2980B9" />
-            </svg>
-            <svg class="fdrop fdrop-2" viewBox="0 0 60 78" fill="none">
-                <path d="M30 0C30 0 0 32 0 50C0 65.4 13.4 78 30 78C46.6 78 60 65.4 60 50C60 32 30 0 30 0Z"
-                    fill="#6DD5FA" />
-            </svg>
-            <svg class="fdrop fdrop-3" viewBox="0 0 60 78" fill="none">
-                <path d="M30 0C30 0 0 32 0 50C0 65.4 13.4 78 30 78C46.6 78 60 65.4 60 50C60 32 30 0 30 0Z"
-                    fill="#1a5f8a" />
-            </svg>
-            <svg class="fdrop fdrop-4" viewBox="0 0 60 78" fill="none">
-                <path d="M30 0C30 0 0 32 0 50C0 65.4 13.4 78 30 78C46.6 78 60 65.4 60 50C60 32 30 0 30 0Z"
-                    fill="#6DD5FA" />
-            </svg>
-        </div>
-
-        <div class="container mx-auto hero-inner px-4">
-
-            <!-- Left: Text -->
+        <div class="container mx-auto hero-inner px-6">
             <div class="hero-text">
                 <div class="hero-eyebrow">
                     <span class="eyebrow-pulse"></span>
@@ -68,19 +48,18 @@
                     </a>
                 </div>
 
-                <!-- Trust badges -->
                 <div class="trust-row">
                     <div class="trust-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2980B9" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
                         <span>Quality Guaranteed</span>
                     </div>
                     <div class="trust-divider"></div>
                     <div class="trust-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2980B9" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10" />
                             <polyline points="12 6 12 12 16 14" />
                         </svg>
@@ -88,8 +67,8 @@
                     </div>
                     <div class="trust-divider"></div>
                     <div class="trust-item">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2980B9" stroke-width="2"
-                            stroke-linecap="round" stroke-linejoin="round">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path
                                 d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z" />
                         </svg>
@@ -98,63 +77,38 @@
                 </div>
             </div>
 
-            <!-- Right: Hero visual -->
             <div class="hero-visual">
-                <div class="hero-card-glow"></div>
-                <div class="hero-card">
-                    <div class="hero-drop-big">
-                        <svg viewBox="0 0 200 260" fill="none">
-                            <defs>
-                                <linearGradient id="heroDropGrad" x1="0" y1="0" x2="0" y2="260"
-                                    gradientUnits="userSpaceOnUse">
-                                    <stop offset="0%" stop-color="#6DD5FA" />
-                                    <stop offset="100%" stop-color="#2980B9" />
-                                </linearGradient>
-                                <filter id="dropShadow">
-                                    <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#2980B9"
-                                        flood-opacity="0.3" />
-                                </filter>
-                            </defs>
-                            <path
-                                d="M100 0C100 0 0 106 0 166C0 218 44.8 260 100 260C155.2 260 200 218 200 166C200 106 100 0 100 0Z"
-                                fill="url(#heroDropGrad)" filter="url(#dropShadow)" />
-                            <ellipse cx="100" cy="220" rx="48" ry="22" fill="white" opacity="0.25"
-                                transform="rotate(-8,100,220)" />
-                            <ellipse cx="68" cy="80" rx="18" ry="36" fill="white" opacity="0.2"
-                                transform="rotate(-22,68,80)" />
-                            <ellipse cx="130" cy="110" rx="10" ry="22" fill="white" opacity="0.15"
-                                transform="rotate(12,130,110)" />
-                        </svg>
-                        <span class="drop-emoji">🥛</span>
+                <div class="hero-visual-inner">
+                    <!-- main circle display -->
+                    <div class="overflow-hidden rounded-full">
+                        <img src="https://img.freepik.com/free-photo/female-farmer-milking-cow-farm_114579-2831.jpg?uid=R233490779&ga=GA1.1.171658458.1771562687&semt=ais_hybrid&w=740&q=80"
+                            alt="image">
                     </div>
+                    <div class="hero-milk-icon">🥛</div>
 
-                    <!-- Floating product chips -->
+                    <!-- floating chips -->
                     <div class="product-chip chip-1">🧀 Fresh Paneer</div>
                     <div class="product-chip chip-2">🧈 Farm Butter</div>
                     <div class="product-chip chip-3">🫙 A2 Ghee</div>
                     <div class="product-chip chip-4">🍶 Greek Yogurt</div>
 
-                    <!-- Stat card -->
+                    <!-- stat badge -->
                     <div class="stat-card">
                         <div class="stat-number">50K+</div>
                         <div class="stat-label">Happy Families</div>
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- Scroll indicator -->
         <div class="scroll-indicator">
-            <div class="scroll-dot"></div>
+            <div class="scroll-line"></div>
         </div>
     </section>
 
-    <!-- ════════════════════════════════════
-       STATS BAR
-  ════════════════════════════════════ -->
+    <!-- ── STATS BAR ── -->
     <section class="stats-section">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-6">
             <div class="stats-grid">
                 <div class="stat-item">
                     <span class="stat-val">50,000+</span>
@@ -179,20 +133,14 @@
         </div>
     </section>
 
-    <!-- ════════════════════════════════════
-       CATEGORIES
-  ════════════════════════════════════ -->
+    <!-- ── CATEGORIES ── -->
     <section class="categories-section">
-        <div class="container mx-auto px-4">
-
+        <div class="container mx-auto px-6">
             <div class="section-header">
-                <div class="section-eyebrow">
-                    <span class="eyebrow-dot"></span> What We Offer
-                </div>
+                <div class="section-eyebrow"><span class="eyebrow-dot"></span> What We Offer</div>
                 <h2 class="section-title">Fresh <span>Categories</span></h2>
                 <p class="section-sub">Everything dairy, straight from nature's best sources</p>
             </div>
-
             <div class="categories-grid">
                 <a routerLink="/products" class="cat-card cat-milk">
                     <div class="cat-icon-ring">🥛</div>
@@ -222,18 +170,15 @@
         </div>
     </section>
 
-    <!-- ════════════════════════════════════
-       HOW IT WORKS
-  ════════════════════════════════════ -->
+    <!-- ── HOW IT WORKS ── -->
     <section class="how-section">
-        <div class="container mx-auto px-4">
-
-            <div class="section-header text-center">
-                <div class="section-eyebrow justify-center"><span class="eyebrow-dot"></span> Simple Process</div>
-                <h2 class="section-title">How <span>DairyDrop</span> Works</h2>
+        <div class="container mx-auto px-6">
+            <div class="section-header" style="text-align:center;">
+                <div class="section-eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span> Simple
+                    Process</div>
+                <h2 class="section-title">How <span>MilkHaus</span> Works</h2>
                 <p class="section-sub">Fresh dairy in 3 simple steps</p>
             </div>
-
             <div class="steps-grid">
                 <div class="step-card">
                     <div class="step-number">01</div>
@@ -261,28 +206,17 @@
         </div>
     </section>
 
-    <!-- ════════════════════════════════════
-       WHY CHOOSE US
-  ════════════════════════════════════ -->
+    <!-- ── WHY CHOOSE US ── -->
     <section class="why-section">
         <div class="container mx-auto px-6">
             <div class="why-inner">
-
-                <!-- Left visual -->
                 <div class="why-visual">
                     <div class="why-card-outer">
-                        <div class="why-drop-bg"></div>
-                        <div class="why-emoji-grid">
-                            <span class="why-em em-1">🥛</span>
-                            <span class="why-em em-2">🧀</span>
-                            <span class="why-em em-3">🧈</span>
-                            <span class="why-em em-4">🫙</span>
-                            <span class="why-em em-5">🍶</span>
-                            <span class="why-em em-6">🐄</span>
-                        </div>
+                        <img src="https://img.freepik.com/free-photo/young-woman-standing-with-milk-jug-cowshed_1303-30955.jpg?uid=R233490779&ga=GA1.1.171658458.1771562687&semt=ais_hybrid&w=740&q=80"
+                            alt="image of lady carrying milk" class="object-cover h-full">
                     </div>
                     <div class="why-float-badge">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2980B9" stroke-width="2"
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"
                             stroke-linecap="round" stroke-linejoin="round">
                             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                         </svg>
@@ -293,13 +227,11 @@
                     </div>
                 </div>
 
-                <!-- Right: Feature list -->
                 <div class="why-content">
                     <div class="section-eyebrow"><span class="eyebrow-dot"></span> Why Us</div>
-                    <h2 class="section-title">Why Families <span>Love</span> DairyDrop</h2>
+                    <h2 class="section-title">Why Families <span>Love</span> MilkHaus</h2>
                     <p class="section-sub" style="max-width:440px;">We're not just a delivery service — we're your
                         trusted farm-to-table dairy partner.</p>
-
                     <div class="features-list">
                         <div class="feature-item">
                             <div class="feature-icon-wrap">🌿</div>
@@ -339,22 +271,19 @@
         </div>
     </section>
 
-    <!-- ════════════════════════════════════
-       TESTIMONIALS
-  ════════════════════════════════════ -->
+    <!-- ── TESTIMONIALS ── -->
     <section class="testimonials-section">
         <div class="container mx-auto px-6">
-
-            <div class="section-header text-center">
-                <div class="section-eyebrow justify-center"><span class="eyebrow-dot"></span> Reviews</div>
+            <div class="section-header" style="text-align:center;">
+                <div class="section-eyebrow" style="justify-content:center;"><span class="eyebrow-dot"></span> Reviews
+                </div>
                 <h2 class="section-title">What Customers <span>Say</span></h2>
             </div>
-
             <div class="testimonials-grid">
                 <div class="testi-card">
                     <div class="testi-stars">★★★★★</div>
                     <p class="testi-text">"The milk quality is unbelievable. My morning chai has never tasted better.
-                        DairyDrop changed our family's routine completely!"</p>
+                        MilkHaus changed our family's routine completely!"</p>
                     <div class="testi-author">
                         <div class="testi-avatar">P</div>
                         <div>
@@ -366,7 +295,7 @@
                 <div class="testi-card testi-featured">
                     <div class="testi-stars">★★★★★</div>
                     <p class="testi-text">"Fresh paneer every morning for my cooking — the texture and taste are so much
-                        better than store-bought. Highly recommend DairyDrop!"</p>
+                        better than store-bought. Highly recommend MilkHaus!"</p>
                     <div class="testi-author">
                         <div class="testi-avatar">R</div>
                         <div>
@@ -391,33 +320,18 @@
         </div>
     </section>
 
-    <!-- ════════════════════════════════════
-       CTA BANNER
-  ════════════════════════════════════ -->
+    <!-- ── CTA BANNER ── -->
     <section class="cta-section">
         <div class="container mx-auto px-6">
             <div class="cta-card">
-                <div class="cta-bg-drops" aria-hidden="true">
-                    <svg class="cta-drop cd-1" viewBox="0 0 60 78" fill="none">
-                        <path d="M30 0C30 0 0 32 0 50C0 65.4 13.4 78 30 78C46.6 78 60 65.4 60 50C60 32 30 0 30 0Z"
-                            fill="white" opacity="0.06" />
-                    </svg>
-                    <svg class="cta-drop cd-2" viewBox="0 0 60 78" fill="none">
-                        <path d="M30 0C30 0 0 32 0 50C0 65.4 13.4 78 30 78C46.6 78 60 65.4 60 50C60 32 30 0 30 0Z"
-                            fill="white" opacity="0.04" />
-                    </svg>
-                    <svg class="cta-drop cd-3" viewBox="0 0 60 78" fill="none">
-                        <path d="M30 0C30 0 0 32 0 50C0 65.4 13.4 78 30 78C46.6 78 60 65.4 60 50C60 32 30 0 30 0Z"
-                            fill="white" opacity="0.05" />
-                    </svg>
-                </div>
+                <div class="cta-bg-mesh" aria-hidden="true"></div>
                 <div class="cta-content">
                     <div class="cta-emoji">🥛</div>
                     <h2 class="cta-title">Start Your Fresh<br />Morning Ritual Today</h2>
                     <p class="cta-sub">Get your first order delivered FREE. Use code <strong>FIRSTDROP</strong> at
                         checkout.</p>
                     <div class="cta-actions">
-                        <a class="cta-btn-primary">
+                        <a routerLink="/products" class="cta-btn-primary">
                             Get Started Free
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -431,38 +345,31 @@
         </div>
     </section>
 
-    <!-- ════════════════════════════════════
-       FOOTER
-  ════════════════════════════════════ -->
+    <!-- ── FOOTER ── -->
     <footer class="site-footer">
         <div class="container mx-auto px-6">
             <div class="footer-grid">
 
-                <!-- Brand -->
                 <div class="footer-brand">
-                    <div class="flex items-center gap-3 mb-4">
-                        <svg width="36" height="46" viewBox="0 0 60 78" fill="none">
-                            <defs>
-                                <linearGradient id="ftLg" x1="0" y1="0" x2="0" y2="78" gradientUnits="userSpaceOnUse">
-                                    <stop offset="0%" stop-color="#6DD5FA" />
-                                    <stop offset="100%" stop-color="#2980B9" />
-                                </linearGradient>
-                            </defs>
-                            <path d="M30 0C30 0 0 32 0 50C0 65.4 13.4 78 30 78C46.6 78 60 65.4 60 50C60 32 30 0 30 0Z"
-                                fill="url(#ftLg)" />
-                            <ellipse cx="30" cy="62" rx="14" ry="7" fill="white" opacity="0.35"
-                                transform="rotate(-10,30,62)" />
+                    <div class="footer-logo">
+                        <svg class="footer-logo-icon" viewBox="0 0 48 48" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <rect width="48" height="48" rx="14" fill="#0f172a" />
+                            <path d="M24 8 L36 18 L36 36 L12 36 L12 18 Z" fill="none" stroke="#e2fef1"
+                                stroke-width="1.5" stroke-linejoin="round" />
+                            <path d="M18 36 L18 26 Q24 22 30 26 L30 36" fill="#34d399" opacity="0.9" />
+                            <circle cx="24" cy="17" r="2.5" fill="#34d399" />
                         </svg>
                         <div>
-                            <div class="footer-logo-title">Dairy<span>Drop</span></div>
-                            <div class="footer-logo-tag">FRESH FROM THE FARM</div>
+                            <div class="footer-logo-title">Milk<span>Haus</span></div>
+                            <div class="footer-logo-tag">FARM · FRESH · DAILY</div>
                         </div>
                     </div>
                     <p class="footer-brand-desc">Farm-fresh dairy products delivered to your door every morning. Taste
                         the difference that freshness makes.</p>
                     <div class="footer-socials">
                         <a class="social-icon" aria-label="Instagram">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
@@ -470,12 +377,12 @@
                             </svg>
                         </a>
                         <a class="social-icon" aria-label="Facebook">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
                             </svg>
                         </a>
                         <a class="social-icon" aria-label="Twitter">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
                                 <path
                                     d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
                             </svg>
@@ -483,7 +390,6 @@
                     </div>
                 </div>
 
-                <!-- Quick links -->
                 <div class="footer-col">
                     <h4 class="footer-col-title">Quick Links</h4>
                     <ul class="footer-links">
@@ -495,7 +401,6 @@
                     </ul>
                 </div>
 
-                <!-- Categories -->
                 <div class="footer-col">
                     <h4 class="footer-col-title">Categories</h4>
                     <ul class="footer-links">
@@ -507,12 +412,11 @@
                     </ul>
                 </div>
 
-                <!-- Contact -->
                 <div class="footer-col">
                     <h4 class="footer-col-title">Contact Us</h4>
                     <ul class="footer-contact">
                         <li>
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                 <path
                                     d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 10.81 19.79 19.79 0 01.21 2.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
@@ -520,15 +424,15 @@
                             <span>+91 98765 43210</span>
                         </li>
                         <li>
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="2" y="4" width="20" height="16" rx="3" />
                                 <path d="M2 7l10 7 10-7" />
                             </svg>
-                            <span>hello@dairydrop.in</span>
+                            <span>hello@milkhaus.in</span>
                         </li>
                         <li>
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
                                 <circle cx="12" cy="10" r="3" />
@@ -539,9 +443,8 @@
                 </div>
             </div>
 
-            <!-- Footer bottom -->
             <div class="footer-bottom">
-                <p>© 2026 DairyDrop. All rights reserved. Made with 🥛 in India.</p>
+                <p>© 2026 MilkHaus. All rights reserved. Made with 🥛 in India.</p>
                 <div class="footer-bottom-links">
                     <a>Privacy Policy</a>
                     <a>Terms of Service</a>
@@ -550,5 +453,4 @@
             </div>
         </div>
     </footer>
-
 </div>
